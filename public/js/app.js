@@ -1,0 +1,1 @@
+console.log("client side js file is loaded") //개발자 도구의 console에 출력

@@ -1,0 +1,18 @@
+<!-- 웹사이트의 루트 페이지-->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!--<link rel="stylesheet" href="./css/styles.css">-->
+    <link rel="icon" href="/img/marker.png">
+    <link rel = "stylesheet" type="text/css" href="/css/styles.css"> 
+    <script src="/js/app.js"></script>
+</head>
+<body>
+<div class="main-content">
+{{>header}}
+<h3>created by {{name}}</h3> <!--django와 같이 중괄호 두개로 템플릿 받음-->
+</div>
+{{>footer}}
+</body>
+</html>
