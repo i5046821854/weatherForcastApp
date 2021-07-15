@@ -1,6 +1,9 @@
 const path = require('path') 
 const express = require('express')
 const hbs = require('hbs')
+const geocode = require('./utils/geocode')
+const forecast = require('./utils/forecast')
+const forcast = require('./utils/forecast')
 
 const app = express() //express는 함수 형식이므로 변수에 할당해줌으로써 사용
 
@@ -37,10 +40,10 @@ app.get('/help', (req,res) =>{
     res.send([{
         name: 'andrew',
         age : 29
-    }] , {
+    } , {
         name : "lee",
         age: 24
-    })  //json데이터도 전달할 수 있음. 익스프레스가 이를 자동적으로 stringify하여 전달, json은 배열의 형식으로도 표현 가능 
+    }])  //json데이터도 전달할 수 있음. 익스프레스가 이를 자동적으로 stringify하여 전달, json은 배열의 형식으로도 표현 가능 
 })*/
 
 app.get('/help', (req,res) =>{
@@ -67,15 +70,46 @@ app.get('/about', (req, res) =>{
     })
 })
 
-app.get('/weather', (req, res) =>{
-    res.send([{
-        name: 'andrew',
-        age : 29
-    }] , {
-        name : "lee",
-        age: 24
-    })  //json데이터도 전달할 수 있음. 익스프레스가 이를 자동적으로 stringify하여 전달, json은 배열의 형식으로도 표현 가능 
+app.get('/products', (req, res)=>{
+    if(!req.query.search){   //req.query: 쿼리스트링을 json으로 받음 , search라는 쿼리 스트링을 필수적으로 입력하게 하여서, 만약 입력하지 않았을 경우, error를 브라우저에 전달
+        return res.send({    //http request는 하나의 response와 하나의 req만 처리, res.send를 여러번 하면 오류 발생 가능성
+            error:'you mush provide a search term'
+        })
+    }
+    res.send({
+        products:[]
+    })
+})
 
+app.get('/weather', (req, res) =>{
+   if(req.query.location === undefined)
+   {
+       return res.send({error: "no location"})
+   }
+   const address = req.query.location
+   geocode(address, (error, {lat, lng, location} = {}) =>{
+        if(error)
+        {
+            return res.send({
+                error
+            })
+        }
+        forcast(lng, lat, (error, forcastData) =>{
+            if(error)
+            {   
+                return res.send({
+                error
+                })
+            }
+            res.send({
+                address,
+                forcast : forcastData,
+                location
+
+            })
+        })
+
+   })
 })
 
 app.get('*', (req, res) =>{ //1st  param => *으로 하면 모든 라우트를 핸들
