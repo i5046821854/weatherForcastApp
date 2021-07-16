@@ -6,7 +6,7 @@ const forecast = require('./utils/forecast')
 const forcast = require('./utils/forecast')
 
 const app = express() //express는 함수 형식이므로 변수에 할당해줌으로써 사용
-const port = process.env.PORT || 3000 //heroku의 포트번호 or local로 호스팅할 떄의 포트번호
+const PORT = process.env.PORT || 3000 //heroku의 포트번호 or local로 호스팅할 떄의 포트번호
 
 //동적으로 웹페이지 만들때
 const viewsPath = path.join(__dirname, '../phony/views') //hbs 파일들이 들어있는 폴더 이름을 views라고 말고 다른 값으로 변경하고 싶을 때, (default는 views폴더여서 views를 계속 쓸 경우에는 path.join이랑 app set 두번째 구문 써줄 필요 x)
