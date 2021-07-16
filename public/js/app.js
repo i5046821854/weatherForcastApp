@@ -17,7 +17,7 @@ weatherForm.addEventListener('submit', (e) =>{  //1st param : 이벤트 이름 ,
     {
         mesg1.textContent = "로딩중입니다"
         mesg2.textContent = ""
-        fetch("http://localhost:3000/weather?location="+location).then((response)=>{ //사용자가 인풋으로 입력한 값을 fetch에 호출할 API의 URL에 넣어주면서 결과를 얻어냄   
+        fetch("/weather?location="+location).then((response)=>{ //사용자가 인풋으로 입력한 값을 fetch에 호출할 API의 URL에 넣어주면서 결과를 얻어냄, url은 로컬로 호스팅할 떄랑 헤로쿠로 서버 배포할 떄랑 달라야하니까 현재 url을 기준으로 뒤에 것만 concate할 수 있도록 /~~ 형식으로 써줌   
         response.json().then(({error, location, forcast})=>{   //fetch에서 가져온 것을 json형식에서 js object의 형태로 파싱해서 다음 콜백 함수를 실행함
             if(error){
                 mesg1.textContent = error
