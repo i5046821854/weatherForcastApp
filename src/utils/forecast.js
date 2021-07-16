@@ -12,7 +12,7 @@ const forcast = (lat, lng, callback)=>{
         }
         else{
             const body = Body.current
-            callback(undefined, body.weather_descriptions[0] + ". It is currently " + body.temperature+ " degrees out. It feels like " + body.feelslike + " degrees")
+            callback(undefined, body.weather_descriptions[0] + ". It is currently " + body.temperature+ " degrees out. It feels like " + body.feelslike + " degrees. the humidity is " + body.humidity)
         }
     })
 
